@@ -1,0 +1,6 @@
+# Herramientas de desarrollo / build / auditoría
+build
+nuitka==4.3.5
+bandit
+pip-audit
+pytest

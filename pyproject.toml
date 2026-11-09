@@ -1,0 +1,48 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tuxsign"
+dynamic = ["version"]
+description = "Firma PDF con tu certificado .p12 (PAdES) en Linux, todo en local y sin red"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "Gugeldot" }]
+keywords = ["pdf", "firma", "signature", "pades", "pkcs12", "linux", "privacy"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Environment :: X11 Applications :: Qt",
+  "Intended Audience :: End Users/Desktop",
+  "Operating System :: POSIX :: Linux",
+  "Programming Language :: Python :: 3",
+  "Topic :: Security :: Cryptography",
+]
+dependencies = [
+  "PySide6>=6.6",
+  "pymupdf>=1.24,<2",
+  "pyhanko>=0.25",
+  "pyhanko-certvalidator>=0.26",
+  "cryptography>=42",
+  "pillow>=10",
+]
+
+[project.urls]
+Homepage = "https://gugeldot.github.io/TuxSign/"
+Repository = "https://github.com/gugeldot/TuxSign"
+Issues = "https://github.com/gugeldot/TuxSign/issues"
+Changelog = "https://github.com/gugeldot/TuxSign/blob/main/CHANGELOG.md"
+
+[project.gui-scripts]
+tuxsign = "tuxsign.app:main"
+
+[tool.setuptools.packages.find]
+include = ["tuxsign*"]
+
+[tool.setuptools.dynamic]
+version = { attr = "tuxsign.__version__" }
+
+[tool.setuptools.package-data]
+tuxsign = ["MANIFEST.json", "MANIFEST.sig"]

@@ -1,0 +1,7 @@
+# Versiones fijadas (A.8.28 / A.8.19). build.sh genera la variante con hashes para Flatpak.
+PySide6==6.11.2
+pymupdf==1.28.2
+pyhanko==0.38.1
+pyhanko-certvalidator==0.33.0
+cryptography==50.0.1
+pillow==13.0.0

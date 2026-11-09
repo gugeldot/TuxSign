@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="es" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TuxSign: firma PDF con tu certificado, todo en local</title>
+  <meta name="description" content="TuxSign es una aplicación libre para Linux que firma PDF con tu certificado .p12 (PAdES). Sin nube, sin red y sin telemetría.">
+  <meta name="theme-color" content="#0E1016">
+  <link rel="canonical" href="https://gugeldot.github.io/TuxSign/">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="TuxSign: firma PDF con tu certificado, todo en local">
+  <meta property="og:description" content="Aplicación libre para Linux. Firma PAdES con tu .p12, sin nube, sin red y sin telemetría.">
+  <meta property="og:image" content="https://gugeldot.github.io/TuxSign/assets/og.jpg">
+  <meta property="og:url" content="https://gugeldot.github.io/TuxSign/">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="assets/site.css">
+  <script>
+    /* Aplica el tema antes de pintar para evitar parpadeos. */
+    (function () {
+      var t = null;
+      try { t = localStorage.getItem("tuxsign-theme"); } catch (e) {}
+      if (!t) { t = window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark"; }
+      document.documentElement.setAttribute("data-theme", t);
+    })();
+  </script>
+</head>
+<body>
+  <a class="skip" href="#main" data-i18n="skip">Saltar al contenido</a>
+
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="i-file" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></symbol>
+      <symbol id="i-pen" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></symbol>
+      <symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></symbol>
+      <symbol id="i-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
+      <symbol id="i-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></symbol>
+      <symbol id="i-key" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="7.5" cy="15.5" r="4.5"/><path d="M10.7 12.3 21 2m-3 3 3 3m-6 0 2.5 2.5"/></symbol>
+      <symbol id="i-layers" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></symbol>
+      <symbol id="i-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></symbol>
+      <symbol id="i-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></symbol>
+      <symbol id="i-code" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></symbol>
+      <symbol id="i-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></symbol>
+      <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></symbol>
+      <symbol id="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></symbol>
+      <symbol id="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></symbol>
+    </defs>
+  </svg>
+
+  <div class="blobs" aria-hidden="true"><div class="blob a"></div><div class="blob b"></div></div>
+
+  <header class="top">
+    <div class="wrap bar">
+      <a class="brand" href="#top" aria-label="TuxSign"><img src="assets/favicon.svg" alt="" width="30" height="30">TuxSign</a>
+      <nav class="links" aria-label="Principal">
+        <a href="#funciones" data-i18n="nav_features">Funciones</a>
+        <a href="#seguridad" data-i18n="nav_security">Seguridad</a>
+        <a href="#instalar" data-i18n="nav_install">Instalar</a>
+        <a href="#preguntas" data-i18n="nav_faq">Preguntas</a>
+      </nav>
+      <div class="spacer"></div>
+      <button class="chip-btn" id="lang" type="button" aria-label="Cambiar idioma"><svg><use href="#i-globe"/></svg><span id="lang-label">EN</span></button>
+      <button class="chip-btn icon-only" id="theme" type="button" aria-label="Cambiar tema" data-i18n-aria="aria_theme"><svg><use id="theme-icon" href="#i-sun"/></svg></button>
+      <a class="chip-btn" href="https://github.com/gugeldot/TuxSign"><svg><use href="#i-code"/></svg>GitHub</a>
+    </div>
+  </header>
+
+  <main id="main">
+    <div class="wrap hero" id="top">
+      <div>
+        <span class="eyebrow reveal"><i></i><span data-i18n="eyebrow">Software libre para Linux</span></span>
+        <h1 class="reveal d1"><span data-i18n="h1a">Firma tus PDF con tu certificado.</span> <span class="grad" data-i18n="h1b">Sin que nada salga de tu ordenador.</span></h1>
+        <p class="lead reveal d2" data-i18n="lead">TuxSign firma documentos con tu certificado .p12 y deja el original intacto. Sin nube, sin red y sin telemetría. Tú, tu certificado y tu PDF, y nadie más.</p>
+        <div class="cta reveal d3">
+          <a class="btn primary" href="https://github.com/gugeldot/TuxSign/releases/latest"><svg><use href="#i-down"/></svg><span data-i18n="cta_download">Descargar</span></a>
+          <a class="btn" href="https://github.com/gugeldot/TuxSign"><svg><use href="#i-code"/></svg><span data-i18n="cta_code">Ver el código</span></a>
+        </div>
+        <p class="fine reveal d3" data-i18n="fine">Gratis y de código abierto (MIT). Disponible como Flatpak, paquete Python y binario nativo.</p>
+      </div>
+      <div class="hero-art reveal d2">
+        <div class="glow" aria-hidden="true"></div>
+        <div class="shot-frame"><img class="shot" data-shot="handwritten" src="assets/handwritten-es-dark.webp" width="1320" height="840" alt="TuxSign firmando un contrato con firma manuscrita" data-i18n-alt="alt_hero"></div>
+      </div>
+    </div>
+
+    <section id="funciones">
+      <div class="wrap">
+        <div class="sec-head reveal">
+          <span class="kicker" data-i18n="feat_kicker">Qué hace</span>
+          <h2 data-i18n="feat_title">Lo justo para firmar bien, y nada más</h2>
+          <p data-i18n="feat_sub">Una herramienta pequeña y cuidada. Se abre rápido, se entiende a la primera y no te pide nada que no necesite.</p>
+        </div>
+        <div class="grid">
+          <article class="card reveal"><div class="ico"><svg><use href="#i-key"/></svg></div><h3 data-i18n="f1t">Firma PAdES de verdad</h3><p data-i18n="f1p">Firma con SHA-256 sobre todo el documento, usando tu certificado .p12 o .pfx. Puedes firmar varias veces y comprobar las firmas que ya trae.</p></article>
+          <article class="card reveal d1"><div class="ico"><svg><use href="#i-pen"/></svg></div><h3 data-i18n="f2t">Tu firma, a tu manera</h3><p data-i18n="f2p">Un bloque con tu nombre y la fecha que mueves y redimensionas a mano. Si quieres, añade tu firma manuscrita. Viene desactivada.</p></article>
+          <article class="card reveal d2"><div class="ico"><svg><use href="#i-file"/></svg></div><h3 data-i18n="f3t">Un visor que se agradece</h3><p data-i18n="f3p">Zoom suave, páginas, arrastrar y soltar, y tema claro u oscuro. Con animaciones discretas que ayudan en vez de molestar.</p></article>
+          <article class="card reveal"><div class="ico"><svg><use href="#i-lock"/></svg></div><h3 data-i18n="f4t">Todo en tu equipo</h3><p data-i18n="f4p">Sin conexión a Internet, sin cuentas y sin telemetría. Tu documento y tu certificado no salen de tu ordenador.</p></article>
+          <article class="card reveal d1"><div class="ico"><svg><use href="#i-layers"/></svg></div><h3 data-i18n="f5t">Seguridad por capas</h3><p data-i18n="f5p">El PDF se abre en un proceso sin permisos, el código se comprueba al arrancar y el sistema le prohíbe la red.</p></article>
+          <article class="card reveal d2"><div class="ico"><svg><use href="#i-globe"/></svg></div><h3 data-i18n="f6t">En tu idioma</h3><p data-i18n="f6p">Disponible en inglés, español, francés, alemán y portugués. Añadir otro idioma es un cambio pequeño.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="como">
+      <div class="wrap">
+        <div class="sec-head reveal">
+          <span class="kicker" data-i18n="how_kicker">Cómo se usa</span>
+          <h2 data-i18n="how_title">Cinco pasos y listo</h2>
+          <p data-i18n="how_sub">Abre el PDF, desbloquea tu certificado, coloca el bloque de firma, ajústalo y firma. Se guarda una copia nueva y el original no se toca.</p>
+        </div>
+        <div class="reveal">
+          <div class="tabs" role="tablist" aria-label="Capturas">
+            <button class="tab" role="tab" aria-selected="true" data-tab="block" data-i18n="tab_block">Bloque de firma</button>
+            <button class="tab" role="tab" aria-selected="false" data-tab="handwritten" data-i18n="tab_hand">Firma manuscrita</button>
+            <button class="tab" role="tab" aria-selected="false" data-tab="home" data-i18n="tab_home">Pantalla de inicio</button>
+          </div>
+          <div class="showcase">
+            <div class="shot-frame"><img id="showcase-img" class="shot" data-shot="block" src="assets/block-es-dark.webp" width="1320" height="840" alt="Captura de TuxSign" loading="lazy"></div>
+            <p class="caption" id="caption" data-i18n="cap_block">El bloque con tu nombre y la fecha se arrastra a su sitio y se ajusta de tamaño con la esquina.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="seguridad">
+      <div class="wrap">
+        <div class="sec-head reveal">
+          <span class="kicker" data-i18n="sec_kicker">Seguridad</span>
+          <h2 data-i18n="sec_title">Seguridad que puedes comprobar</h2>
+          <p data-i18n="sec_sub">No te pedimos que te fíes de nuestra palabra. El código es abierto, hay tests para cada protección y el documento de diseño dice también lo que TuxSign no consigue.</p>
+        </div>
+        <div class="sec-grid">
+          <div class="layers">
+            <div class="layer reveal"><div class="ico"><svg><use href="#i-shield"/></svg></div><div><h3 data-i18n="l1t">Sin red</h3><p data-i18n="l1p">Un filtro del sistema (seccomp y Landlock) le impide abrir conexiones, y el Flatpak ni siquiera tiene red.</p></div></div>
+            <div class="layer reveal d1"><div class="ico"><svg><use href="#i-layers"/></svg></div><div><h3 data-i18n="l2t">Lector de PDF aislado</h3><p data-i18n="l2p">El PDF se abre en un proceso aparte, sin acceso a archivos ni a programas. Tu certificado vive en otro proceso distinto.</p></div></div>
+            <div class="layer reveal d2"><div class="ico"><svg><use href="#i-check"/></svg></div><div><h3 data-i18n="l3t">Código verificado</h3><p data-i18n="l3p">Al arrancar se comprueba una firma Ed25519 sobre todos los archivos. Si algo ha cambiado, no arranca.</p></div></div>
+            <div class="layer reveal"><div class="ico"><svg><use href="#i-lock"/></svg></div><div><h3 data-i18n="l4t">Entorno limpio</h3><p data-i18n="l4p">Ignora PYTHONPATH, LD_PRELOAD y otras variables que sirven para colar código ajeno.</p></div></div>
+            <div class="layer reveal d1"><div class="ico"><svg><use href="#i-eye"/></svg></div><div><h3 data-i18n="l5t">Datos mínimos</h3><p data-i18n="l5p">Un registro opcional sin nombres ni rutas, que puedes exportar o borrar entero cuando quieras.</p></div></div>
+          </div>
+          <aside class="honest reveal d1">
+            <h3 data-i18n="h_title">Lo que TuxSign no hace</h3>
+            <ul>
+              <li data-i18n="h1">No pone sello de tiempo, porque eso exige conectarse a Internet.</li>
+              <li data-i18n="h2">No sustituye a un token o a un HSM si tu clave vale mucho.</li>
+              <li data-i18n="h3">Su firma vale legalmente lo que valga tu certificado en tu país.</li>
+              <li data-i18n="h4">La contraseña pasa por la memoria de Python, que no se puede borrar del todo.</li>
+            </ul>
+            <a class="chip-btn" href="https://github.com/gugeldot/TuxSign/blob/main/docs/seguridad.md"><svg><use href="#i-file"/></svg><span data-i18n="h_link">Leer el diseño completo</span></a>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section id="instalar">
+      <div class="wrap">
+        <div class="sec-head reveal">
+          <span class="kicker" data-i18n="ins_kicker">Instalar</span>
+          <h2 data-i18n="ins_title">Instálalo en un minuto</h2>
+          <p data-i18n="ins_sub">Con Flatpak tienes el entorno aislado de serie. Desde el código fuente es ideal si quieres curiosear o contribuir.</p>
+        </div>
+        <div class="install">
+          <div class="card reveal">
+            <h3 data-i18n="ins1t">Con Flatpak (recomendado)</h3>
+            <p data-i18n="ins1p">Descarga el paquete desde la página de descargas y ejecuta:</p>
+            <div class="code">flatpak install --user ./tuxsign-1.2.0.flatpak
+flatpak run io.github.tuxsign.TuxSign<button class="copy" type="button" aria-label="Copiar" data-copy="flatpak install --user ./tuxsign-1.2.0.flatpak&#10;flatpak run io.github.tuxsign.TuxSign"><svg><use href="#i-copy"/></svg></button></div>
+            <p class="note"><a href="https://github.com/gugeldot/TuxSign/releases/latest" data-i18n="ins_rel">Ir a las descargas</a></p>
+          </div>
+          <div class="card reveal d1">
+            <h3 data-i18n="ins2t">Desde el código fuente</h3>
+            <p data-i18n="ins2p">Necesitas Python 3.10 o superior y Wayland o X11:</p>
+            <div class="code">git clone https://github.com/gugeldot/TuxSign.git
+cd TuxSign
+./build.sh run<button class="copy" type="button" aria-label="Copiar" data-copy="git clone https://github.com/gugeldot/TuxSign.git&#10;cd TuxSign&#10;./build.sh run"><svg><use href="#i-copy"/></svg></button></div>
+            <p class="note" data-i18n="ins2n">El script prepara el entorno e instala las dependencias fijadas.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="preguntas">
+      <div class="wrap">
+        <div class="sec-head reveal">
+          <span class="kicker" data-i18n="faq_kicker">Preguntas</span>
+          <h2 data-i18n="faq_title">Lo que suelen preguntar</h2>
+        </div>
+        <div class="reveal">
+          <details><summary data-i18n="q1">¿La firma tiene validez legal?</summary><p data-i18n="a1">Depende de tu certificado y de la normativa de tu país. TuxSign genera una firma PAdES estándar con tu certificado, pero no es una herramienta certificada. Si lo necesitas para algo oficial, consulta qué exige quien lo va a recibir.</p></details>
+          <details><summary data-i18n="q2">¿Mi documento se sube a algún sitio?</summary><p data-i18n="a2">No. TuxSign no usa la red: el sistema se lo impide y el paquete Flatpak ni siquiera la tiene. Puedes comprobarlo en el código, que es abierto.</p></details>
+          <details><summary data-i18n="q3">¿Funciona en Wayland y en X11?</summary><p data-i18n="a3">Sí, en los dos. Una excepción: un DISPLAY de X11 por TCP, como el de ssh -X, no funciona porque la aplicación no puede abrir conexiones de red.</p></details>
+          <details><summary data-i18n="q4">¿Puedo usar un token o una tarjeta?</summary><p data-i18n="a4">Todavía no. Ahora mismo solo admite certificados en archivo .p12 o .pfx. Soportar PKCS#11 sería una buena contribución.</p></details>
+          <details><summary data-i18n="q5">¿Qué licencia tiene?</summary><p data-i18n="a5">El código es MIT. Los paquetes con binarios incluyen otras librerías con sus licencias, como PyMuPDF (AGPL-3.0) y Qt (LGPL-3.0), que hay que respetar si los redistribuyes.</p></details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap foot">
+      <span data-i18n="foot">TuxSign es software libre bajo licencia MIT. Hecho con cariño para Linux.</span>
+      <nav aria-label="Enlaces">
+        <a href="https://github.com/gugeldot/TuxSign">GitHub</a>
+        <a href="https://github.com/gugeldot/TuxSign/blob/main/CHANGELOG.md" data-i18n="foot_changes">Cambios</a>
+        <a href="https://github.com/gugeldot/TuxSign/blob/main/SECURITY.md" data-i18n="foot_sec">Avisar de un fallo de seguridad</a>
+        <a href="https://github.com/gugeldot/TuxSign/blob/main/LICENSE" data-i18n="foot_lic">Licencia</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="assets/site.js" defer></script>
+</body>
+</html>

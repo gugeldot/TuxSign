@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+Name=TuxSign
+GenericName=Firma digital de PDF
+Comment=Firma PDF con certificados .p12 y firma manuscrita, 100% local
+Exec=tuxsign %f
+Icon=io.github.tuxsign.TuxSign
+Terminal=false
+Categories=Office;Utility;Security;
+MimeType=application/pdf;
+Keywords=pdf;firma;signature;p12;pades;
+StartupWMClass=io.github.tuxsign.TuxSign

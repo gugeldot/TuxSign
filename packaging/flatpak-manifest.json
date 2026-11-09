@@ -1,0 +1,45 @@
+{
+  "app-id": "io.github.tuxsign.TuxSign",
+  "runtime": "org.kde.Platform",
+  "runtime-version": "6.10",
+  "sdk": "org.kde.Sdk",
+  "base": "io.qt.PySide.BaseApp",
+  "base-version": "6.10",
+  "command": "tuxsign",
+  "finish-args": [
+    "--share=ipc",
+    "--socket=wayland",
+    "--socket=fallback-x11",
+    "--device=dri",
+    "--unshare=network"
+  ],
+  "cleanup-commands": ["/app/cleanup-BaseApp.sh"],
+  "modules": [
+    {
+      "name": "python-deps",
+      "buildsystem": "simple",
+      "build-commands": [
+        "pip3 install --no-index --find-links=wheels --require-hashes --no-deps --prefix=/app -r flatpak-requirements.txt"
+      ],
+      "sources": [
+        { "type": "dir", "path": "../build/wheels", "dest": "wheels" },
+        { "type": "file", "path": "../build/flatpak-requirements.txt" }
+      ]
+    },
+    {
+      "name": "tuxsign",
+      "buildsystem": "simple",
+      "build-commands": [
+        "SITE=$(python3 -c 'import sysconfig; print(sysconfig.get_path(\"purelib\", vars={\"base\": \"/app\", \"platbase\": \"/app\"}))') && mkdir -p \"$SITE\" && cp -r stage/tuxsign \"$SITE/\"",
+        "install -Dm755 packaging/tuxsign-launcher /app/bin/tuxsign",
+        "install -Dm644 packaging/io.github.tuxsign.TuxSign.desktop /app/share/applications/io.github.tuxsign.TuxSign.desktop",
+        "install -Dm644 packaging/io.github.tuxsign.TuxSign.svg /app/share/icons/hicolor/scalable/apps/io.github.tuxsign.TuxSign.svg",
+        "install -Dm644 packaging/io.github.tuxsign.TuxSign.metainfo.xml /app/share/metainfo/io.github.tuxsign.TuxSign.metainfo.xml"
+      ],
+      "sources": [
+        { "type": "dir", "path": "../build/stage", "dest": "stage" },
+        { "type": "dir", "path": ".", "dest": "packaging" }
+      ]
+    }
+  ]
+}

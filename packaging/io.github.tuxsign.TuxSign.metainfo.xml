@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>io.github.tuxsign.TuxSign</id>
+  <name>TuxSign</name>
+  <summary>Firma digital de PDF con certificados .p12, 100% local</summary>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>MIT</project_license>
+  <description>
+    <p>Firma documentos PDF con tu certificado .p12 (PAdES) y un bloque visible con tu nombre y la fecha, con firma manuscrita opcional. Todo ocurre en tu equipo, sin red y sin telemetría.</p>
+  </description>
+  <url type="homepage">https://gugeldot.github.io/TuxSign/</url>
+  <url type="bugtracker">https://github.com/gugeldot/TuxSign/issues</url>
+  <url type="vcs-browser">https://github.com/gugeldot/TuxSign</url>
+  <launchable type="desktop-id">io.github.tuxsign.TuxSign.desktop</launchable>
+  <content_rating type="oars-1.1"/>
+  <releases><release version="1.2.0" date="2026-11-09"/><release version="1.1.0" date="2026-11-09"/></releases>
+</component>

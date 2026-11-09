@@ -218,3 +218,15 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# --- TuxSign ---
+.venv-native/
+tuxsign/_build.py
+tuxsign/MANIFEST.*
+# nunca subir material criptografico ni de firma de releases
+*.pem
+*.key
+*.p12
+*.pfx
+*.flatpak
+.flatpak-builder/
