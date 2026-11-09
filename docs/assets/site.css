@@ -155,3 +155,8 @@ footer { margin-top: 90px; border-top: 1px solid var(--border); padding: 34px 0 
 .btn .ver { font-weight: 600; font-size: 13px; opacity: .85; padding: 2px 8px; border-radius: 8px; background: color-mix(in srgb, var(--on-accent) 18%, transparent); }
 .install .dl { margin: 14px 0 6px; }
 @media (prefers-reduced-motion: reduce) { .lang-out [data-i18n], .lang-out img[data-shot] { filter: none; opacity: 1; } }
+
+/* cambio de tema: desenfoque y enfoque */
+body { transition: filter .24s ease, opacity .24s ease; }
+.theme-out body { filter: blur(10px); opacity: 0; }
+@media (prefers-reduced-motion: reduce) { .theme-out body { filter: none; opacity: 1; } }

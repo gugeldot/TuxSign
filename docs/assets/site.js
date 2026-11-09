@@ -134,7 +134,16 @@
     document.getElementById("theme-icon").setAttribute("href", t === "dark" ? "#i-sun" : "#i-moon");
     applyShots();
   }
-  document.getElementById("theme").addEventListener("click", function () { setTheme(theme() === "dark" ? "light" : "dark"); });
+  document.getElementById("theme").addEventListener("click", function () {
+    var next = theme() === "dark" ? "light" : "dark";
+    var calm = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (calm) { setTheme(next); return; }
+    root.classList.add("theme-out");
+    setTimeout(function () {
+      setTheme(next);
+      root.classList.remove("theme-out");
+    }, 240);
+  });
   document.getElementById("theme-icon").setAttribute("href", theme() === "dark" ? "#i-sun" : "#i-moon");
 
   /* idioma */
