@@ -137,12 +137,17 @@
   document.getElementById("theme").addEventListener("click", function () {
     var next = theme() === "dark" ? "light" : "dark";
     var calm = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (calm) { setTheme(next); return; }
-    root.classList.add("theme-out");
-    setTimeout(function () {
+    if (calm || !document.startViewTransition) { setTheme(next); return; }
+    /* Cortina de arriba a abajo: el navegador congela la página vieja y descubre la nueva. */
+    root.setAttribute("data-curtain", next === "dark" ? "down" : "up");
+    document.startViewTransition(function () {
       setTheme(next);
-      root.classList.remove("theme-out");
-    }, 240);
+      var pending = [];
+      document.querySelectorAll("img[data-shot]").forEach(function (img) {
+        if (img.decode) { pending.push(img.decode().catch(function () { /* sigue sin la imagen */ })); }
+      });
+      return Promise.all(pending);
+    });
   });
   document.getElementById("theme-icon").setAttribute("href", theme() === "dark" ? "#i-sun" : "#i-moon");
 

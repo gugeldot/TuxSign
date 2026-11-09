@@ -156,7 +156,9 @@ footer { margin-top: 90px; border-top: 1px solid var(--border); padding: 34px 0 
 .install .dl { margin: 14px 0 6px; }
 @media (prefers-reduced-motion: reduce) { .lang-out [data-i18n], .lang-out img[data-shot] { filter: none; opacity: 1; } }
 
-/* cambio de tema: desenfoque y enfoque */
-body { transition: filter .24s ease, opacity .24s ease; }
-.theme-out body { filter: blur(10px); opacity: 0; }
-@media (prefers-reduced-motion: reduce) { .theme-out body { filter: none; opacity: 1; } }
+/* cambio de tema: cortina de arriba a abajo */
+::view-transition-old(root), ::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
+::view-transition-new(root) { animation: curtain .75s cubic-bezier(.65, 0, .35, 1) both; }
+@keyframes curtain { from { clip-path: inset(0 0 100% 0); } to { clip-path: inset(0 0 0 0); } }
+@keyframes curtain-up { from { clip-path: inset(100% 0 0 0); } to { clip-path: inset(0 0 0 0); } }
+:root[data-curtain="up"]::view-transition-new(root) { animation-name: curtain-up; }
