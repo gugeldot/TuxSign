@@ -59,7 +59,10 @@
         <a href="#preguntas" data-i18n="nav_faq">Preguntas</a>
       </nav>
       <div class="spacer"></div>
-      <button class="chip-btn" id="lang" type="button" aria-label="Cambiar idioma"><svg><use href="#i-globe"/></svg><span id="lang-label">EN</span></button>
+      <div class="lang-dd">
+        <button class="chip-btn" id="lang" type="button" aria-label="Idioma / Language" aria-haspopup="listbox" aria-expanded="false" aria-controls="lang-menu"><img class="flag" id="lang-flag" src="assets/flags/es.svg" alt="" width="20" height="14"><span id="lang-label">Español</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button>
+        <ul class="lang-menu" id="lang-menu" role="listbox" aria-label="Idioma / Language" hidden></ul>
+      </div>
       <button class="chip-btn icon-only" id="theme" type="button" aria-label="Cambiar tema" data-i18n-aria="aria_theme"><svg><use id="theme-icon" href="#i-sun"/></svg></button>
       <a class="chip-btn" href="https://github.com/gugeldot/TuxSign"><svg><use href="#i-code"/></svg>GitHub</a>
     </div>
