@@ -56,6 +56,16 @@ cd TuxSign
 
 If you leave the app idle for five minutes it locks the certificate by itself.
 
+### Drag and drop in the Flatpak
+
+The Flatpak can't see your folders, only the files you pick with "Open PDF". Because of that, dragging a PDF from some file managers or from the desktop may not work, and the app will tell you why. You have three options:
+
+- Use the "Open PDF" button, which always works.
+- Give it read-only access to a specific folder, for example `flatpak override --user --filesystem=xdg-documents:ro io.github.tuxsign.TuxSign` (`xdg-desktop:ro` or `xdg-download:ro` also work).
+- Do it from an app such as Flatseal.
+
+Keep in mind that every folder you grant weakens the isolation, so grant the minimum you need.
+
 ## Privacy and security
 
 - **No network.** A system filter (seccomp and Landlock) stops it from opening connections, and the Flatpak has no network at all.

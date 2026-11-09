@@ -78,6 +78,7 @@ _NOTICE = {
 
 S: dict[str, dict[str, str]] = {
     "en": {
+        "err_sandbox_file": "TuxSign runs in a sandbox and can't see that file. Use Open PDF instead, or give it access to the folder.",
         "pages_many": "{n} pages",
         "pages_one": "1 page",
         "err_render": "Couldn't display this PDF.",
@@ -133,6 +134,7 @@ S: dict[str, dict[str, str]] = {
         "privacy_notice": _NOTICE["en"],
     },
     "es": {
+        "err_sandbox_file": "TuxSign se ejecuta aislado y no puede ver ese archivo. Usa Abrir PDF, o dale acceso a la carpeta.",
         "pages_many": "{n} páginas",
         "pages_one": "1 página",
         "err_render": "No se ha podido mostrar este PDF.",
@@ -188,6 +190,7 @@ S: dict[str, dict[str, str]] = {
         "privacy_notice": _NOTICE["es"],
     },
     "fr": {
+        "err_sandbox_file": "TuxSign s'exécute isolé et ne peut pas voir ce fichier. Utilisez Ouvrir un PDF, ou donnez-lui accès au dossier.",
         "pages_many": "{n} pages",
         "pages_one": "1 page",
         "err_render": "Le PDF n'a pas pu être affiché.",
@@ -243,6 +246,7 @@ S: dict[str, dict[str, str]] = {
         "privacy_notice": _NOTICE["fr"],
     },
     "de": {
+        "err_sandbox_file": "TuxSign läuft isoliert und kann diese Datei nicht sehen. Nutze PDF öffnen oder gib dem Programm Zugriff auf den Ordner.",
         "pages_many": "{n} Seiten",
         "pages_one": "1 Seite",
         "err_render": "Das PDF konnte nicht dargestellt werden.",
@@ -298,6 +302,7 @@ S: dict[str, dict[str, str]] = {
         "privacy_notice": _NOTICE["de"],
     },
     "pt": {
+        "err_sandbox_file": "O TuxSign corre isolado e não consegue ver esse ficheiro. Use Abrir PDF ou dê-lhe acesso à pasta.",
         "pages_many": "{n} páginas",
         "pages_one": "1 página",
         "err_render": "Não foi possível apresentar o PDF.",

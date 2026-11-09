@@ -4,6 +4,9 @@ Sigue el formato de [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) 
 
 ## [Sin publicar]
 
+### Arreglos
+- Arrastrar un PDF sobre el Flatpak ya no da un error genérico. La aplicación intenta el portal de transferencia de archivos y, si no puede, explica que el sandbox no ve ese archivo y qué hacer.
+
 ## [1.2.0] - 2026-11-09
 
 ### Novedades

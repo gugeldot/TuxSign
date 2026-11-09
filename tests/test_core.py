@@ -269,6 +269,15 @@ def test_robustness_hardening():
         assert a.verify() == (True, 300)
 
 
+def test_portal_key_from_drag():
+    from PySide6.QtCore import QMimeData
+    from tuxsign.portal import portal_key
+    m = QMimeData()
+    assert portal_key(m) is None
+    m.setData("application/vnd.portal.filetransfer", b"clave-123\x00")
+    assert portal_key(m) == "clave-123"
+
+
 if __name__ == "__main__":
     for n, f in list(globals().items()):
         if n.startswith("test_"):

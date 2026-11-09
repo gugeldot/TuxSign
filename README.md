@@ -58,6 +58,16 @@ El script crea un entorno virtual, instala las dependencias fijadas y abre la ap
 
 Si dejas la aplicación quieta cinco minutos, bloquea el certificado sola.
 
+### Arrastrar y soltar en el Flatpak
+
+El Flatpak no ve tus carpetas, solo los archivos que eliges con "Abrir PDF". Por eso, arrastrar un PDF desde algunos gestores de archivos o desde el escritorio puede no funcionar, y la aplicación te lo explicará. Tienes tres salidas:
+
+- Usar el botón "Abrir PDF", que siempre funciona.
+- Darle acceso de solo lectura a una carpeta concreta, por ejemplo `flatpak override --user --filesystem=xdg-documents:ro io.github.tuxsign.TuxSign` (también vale `xdg-desktop:ro` o `xdg-download:ro`).
+- Hacerlo desde una aplicación como Flatseal.
+
+Ten en cuenta que cada carpeta que concedes reduce el aislamiento, así que mejor la mínima necesaria.
+
 ## Privacidad y seguridad
 
 TuxSign está pensada para que puedas fiarte de ella sin tener que fiarte a ciegas.

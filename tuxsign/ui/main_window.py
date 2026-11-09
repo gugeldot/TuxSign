@@ -17,6 +17,7 @@ from .. import APP_NAME
 from ..audit import AuditLog, doc_fingerprint
 from ..i18n import LANGUAGES, set_language, tr
 from ..pdfdoc import PdfDoc
+from ..portal import portal_key, retrieve_files
 from ..privacy import Settings, save_settings
 from ..security import MAX_P12_BYTES, MAX_PDF_BYTES, AttemptLimiter, InputRejected, Secret, atomic_write, read_regular_file
 from ..signer import AppError, CertificateError, check_signatures, load_pkcs12, sign_pdf
@@ -549,16 +550,36 @@ class MainWindow(QMainWindow):
         AboutDialog(self.info["integrity"], self.info["build"], self).exec()
 
     def dragEnterEvent(self, e):
-        urls = e.mimeData().urls()
-        if len(urls) == 1 and urls[0].isLocalFile() and urls[0].toLocalFile().lower().endswith(".pdf"):
+        mime = e.mimeData()
+        urls = mime.urls()
+        is_pdf = len(urls) == 1 and urls[0].isLocalFile() and urls[0].toLocalFile().lower().endswith(".pdf")
+        if is_pdf or portal_key(mime):
             e.acceptProposedAction(); self.drop.set_drag(True)
 
     def dragLeaveEvent(self, e):
         self.drop.set_drag(False)
 
+    def _dropped_path(self, mime) -> str | None:
+        """Ruta legible del PDF soltado. En Flatpak la ruta real puede no verse: se intenta el portal."""
+        urls = mime.urls()
+        path = urls[0].toLocalFile() if urls else ""
+        if path and os.path.exists(path):
+            return path
+        key = portal_key(mime)
+        if key:
+            pdfs = [f for f in retrieve_files(key) if f.lower().endswith(".pdf")]
+            if pdfs:
+                return pdfs[0]
+        if os.path.exists("/.flatpak-info"):  # sandbox: explicar en vez de dar un error genérico
+            self.toast.show_message(tr("err_sandbox_file"), "warn", 7000)
+            return None
+        return path or None
+
     def dropEvent(self, e):
         self.drop.set_drag(False)
-        self.open_pdf(e.mimeData().urls()[0].toLocalFile())
+        path = self._dropped_path(e.mimeData())
+        if path:
+            self.open_pdf(path)
 
     def closeEvent(self, e):
         self.pad.wipe()
