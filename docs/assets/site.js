@@ -39,7 +39,7 @@
     h_link: "Read the full design",
     ins_kicker: "Install", ins_title: "Install it in a minute",
     ins_sub: "With Flatpak you get the sandbox out of the box. From source is ideal if you want to poke around or contribute.",
-    ins1t: "With Flatpak (recommended)", ins1p: "Download the bundle from the releases page and run:", ins_rel: "Go to releases",
+    ins1t: "With Flatpak (recommended)", ins1p: "Download the bundle from the releases page and run:", ins_rel: "Go to releases", ins_dl: "Download Flatpak 1.2.0",
     ins2t: "From source", ins2p: "You need Python 3.10 or newer and Wayland or X11:", ins2n: "The script sets up the environment and installs the pinned dependencies.",
     faq_kicker: "FAQ", faq_title: "What people usually ask",
     q1: "Is the signature legally valid?", a1: "It depends on your certificate and your country's rules. TuxSign produces a standard PAdES signature with your certificate, but it is not a certified tool. If you need it for something official, check what the recipient requires.",
@@ -141,7 +141,13 @@
   document.getElementById("lang").addEventListener("click", function () {
     lang = lang === "es" ? "en" : "es";
     set("tuxsign-lang", lang);
-    applyLang();
+    var calm = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (calm) { applyLang(); return; }
+    root.classList.add("lang-out");
+    setTimeout(function () {
+      applyLang();
+      root.classList.remove("lang-out");
+    }, 240);
   });
   var saved = get("tuxsign-lang");
   var nav = (navigator.language || "es").toLowerCase();
