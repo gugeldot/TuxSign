@@ -204,6 +204,10 @@
     de: "TuxSign: PDFs mit Ihrem Zertifikat signieren, alles lokal",
     pt: "TuxSign: assine PDFs com seu certificado, tudo local"
   };
+  var X = window.TUXSIGN_EXTRA;
+  if (X) {
+    Object.keys(X.names).forEach(function (c) { NAMES[c] = X.names[c]; TITLES[c] = X.titles[c]; DICT[c] = X.dict[c]; });
+  }
 
   var root = document.documentElement;
   var CAP = { block: "cap_block", handwritten: "cap_handwritten", home: "cap_home" };
@@ -367,7 +371,7 @@
   });
   var saved = get("tuxsign-lang");
   var nav = (navigator.language || "es").toLowerCase();
-  lang = NAMES[saved] ? saved : (NAMES[nav.slice(0, 2)] ? nav.slice(0, 2) : "es");
+  lang = NAMES[saved] ? saved : (NAMES[nav.slice(0, 2)] ? nav.slice(0, 2) : "en");
   applyLang();
 
   /* botones de copiar */
