@@ -1,0 +1,29 @@
+<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"><title>OG - TuxSign</title>
+<style>
+/* Palette taken from docs/assets/site.css (dark theme) */
+:root{--bg:#0E1016;--surface:#161923;--border:#2B3043;--text:#E8EAF2;--muted:#9AA0B6;--a:#7C8CFF;--b:#4FD1C5}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1200px;height:627px;overflow:hidden}
+body{background:var(--bg);color:var(--text);font-family:Inter,'Noto Sans','DejaVu Sans',Arial,sans-serif;position:relative}
+body::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 70% at 8% 0%,rgba(124,140,255,.30),transparent 70%),radial-gradient(ellipse 60% 60% at 100% 100%,rgba(79,209,197,.22),transparent 70%)}
+body::after{content:'';position:absolute;inset:28px;border:1px solid rgba(124,140,255,.30);border-radius:18px}
+.col{position:absolute;z-index:2;left:84px;top:0;bottom:0;width:560px;display:flex;flex-direction:column;justify-content:center}
+.brand{display:flex;align-items:center;gap:16px;font-weight:800;font-size:38px;letter-spacing:.3px;margin-bottom:30px}
+.brand img{width:60px;height:60px;border-radius:15px}
+h1{font-size:54px;line-height:1.08;font-weight:800;letter-spacing:-.5px}
+h1 span{display:block;margin-top:14px;font-size:34px;line-height:1.2;font-weight:700;background:linear-gradient(135deg,var(--a),var(--b));-webkit-background-clip:text;background-clip:text;color:transparent}
+.tags{display:flex;gap:10px;margin-top:34px;font-family:'JetBrains Mono','DejaVu Sans Mono',monospace;font-size:19px;color:var(--muted)}
+.tags b{font-weight:500;padding:6px 14px;border:1px solid var(--border);border-radius:999px;background:rgba(22,25,35,.8)}
+.url{position:absolute;z-index:2;left:84px;bottom:58px;font-family:'JetBrains Mono','DejaVu Sans Mono',monospace;font-size:20px;color:var(--muted)}
+/* screenshot of the real app, bleeding off the right edge */
+.shot{position:absolute;z-index:1;left:660px;top:104px;width:640px;height:407px;border-radius:16px;border:1px solid var(--border);overflow:hidden;box-shadow:0 40px 90px -20px rgba(0,0,0,.8),0 0 70px rgba(124,140,255,.22);transform:rotate(-2.5deg)}
+.shot img{display:block;width:100%;height:100%;object-fit:cover;object-position:left top}
+</style></head><body>
+<div class="col">
+  <div class="brand"><img src="../../favicon.svg" alt="">TuxSign</div>
+  <h1>Firma tus PDF con tu certificado.<span>Sin que nada salga de tu ordenador.</span></h1>
+  <div class="tags"><b>PAdES</b><b>.p12</b><b>Linux</b><b>Flatpak</b></div>
+</div>
+<div class="shot"><img src="../../block-es-dark.webp" alt=""></div>
+<div class="url">gugeldot.github.io/TuxSign</div>
+</body></html>
